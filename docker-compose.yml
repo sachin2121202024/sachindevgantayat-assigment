@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: myProject
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build: ./backend   # path to your Node.js project folder
+    container_name: backend
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+    command: ["npm", "start"]
+
+volumes:
+  mongodb_data:
