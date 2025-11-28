@@ -22,5 +22,13 @@ services:
       - mongo
     command: ["npm", "start"]
 
+  frontend:
+      build: ./frontend
+      container_name: frontend
+      restart: always
+      ports:
+        - "4200:4200"
+      command: ["npm", "start"]
+
 volumes:
   mongodb_data:
