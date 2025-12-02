@@ -13,22 +13,25 @@ services:
       - mongodb_data:/data/db
 
   backend:
-    build: ./backend   # path to your Node.js project folder
+    image: <YOUR_DOCKERHUB_USERNAME>/mean-backend:latest
     container_name: backend
     restart: always
     ports:
       - "8080:8080"
     depends_on:
       - mongo
-    command: ["npm", "start"]
+    environment:
+      MONGO_URL: mongodb://mongo:27017/myProject
+      PORT: 8080
 
   frontend:
-    build: ./frontend
+    image: <YOUR_DOCKERHUB_USERNAME>/mean-frontend:latest
     container_name: frontend
     restart: always
     ports:
       - "4200:4200"
-    command: ["npm", "start"]
-    
+    environment:
+      API_URL: http://<EC2_PUBLIC_IP>:8080  # or Nginx reverse proxy
+
 volumes:
   mongodb_data:
