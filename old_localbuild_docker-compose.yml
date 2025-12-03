@@ -13,7 +13,7 @@ services:
       - mongodb_data:/data/db
 
   backend:
-    build: ./backend   # path to your Node.js project folder
+    build: ./backend   # path to your Node.js project folder image.
     container_name: backend
     restart: always
     ports:
